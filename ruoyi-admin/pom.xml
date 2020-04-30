@@ -61,23 +61,12 @@
             <artifactId>mysql-connector-java</artifactId>
         </dependency>
 
-		<!-- 核心模块-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-framework</artifactId>
-        </dependency>
-        
         <!-- 定时任务-->
 <!--        <dependency>
             <groupId>com.ruoyi</groupId>
             <artifactId>ruoyi-quartz</artifactId>
         </dependency>-->
         
-        <!-- 代码生成-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-generator</artifactId>
-        </dependency>
 
 
 
@@ -122,11 +111,6 @@
             <artifactId>UserAgentUtils</artifactId>
         </dependency>
 
-        <!-- 系统模块-->
-        <dependency>
-            <groupId>com.ruoyi</groupId>
-            <artifactId>ruoyi-system</artifactId>
-        </dependency>
 
         <!-- 获取系统信息 -->
         <dependency>
