@@ -42,8 +42,8 @@ public class MedicinePurchaseRecordController extends BaseController
      */
     @GetMapping("/addRecordAndChangeStore")
     @ResponseBody
-    public boolean addRecordAndChangeStore(@RequestParam String atchNumber, @RequestParam Double beginPrice,@RequestParam Integer num) {
-        return medicinePurchaseRecordService.addRecordAndChangeStore(atchNumber,beginPrice,num);
+    public boolean addRecordAndChangeStore(@RequestParam String batchNumber, @RequestParam Double beginPrice,@RequestParam Integer num) {
+        return medicinePurchaseRecordService.addRecordAndChangeStore(batchNumber,beginPrice,num);
     }
 
 

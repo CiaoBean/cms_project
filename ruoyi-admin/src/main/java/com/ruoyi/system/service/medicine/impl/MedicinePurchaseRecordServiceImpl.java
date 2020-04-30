@@ -103,15 +103,15 @@ public class MedicinePurchaseRecordServiceImpl implements IMedicinePurchaseRecor
     /**
      * 根据批号更改库存与添加进货记录
      *
-     * @param atchNumber
+     * @param batchNumber
      * @return
      */
     @Override
     @Transactional(rollbackFor = Exception.class)
-    public boolean addRecordAndChangeStore(String atchNumber,Double beginPrice,Integer num) {
+    public boolean addRecordAndChangeStore(String batchNumber,Double beginPrice,Integer num) {
         // 查询库存
         MedicineStore query = new MedicineStore();
-        query.setBatchNumber(atchNumber);
+        query.setBatchNumber(batchNumber);
         List<MedicineStore> medicineStores = medicineStoreService.selectMedicineStoreList(query);
         if(medicineStores == null || medicineStores.size() !=1){
             return false;

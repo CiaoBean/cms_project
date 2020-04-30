@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.medicine.MedicineSellRecordMapper">
+    
+    <resultMap type="com.ruoyi.system.domain.medicine.MedicineSellRecord" id="MedicineSellRecordResult">
+        <result property="id"    column="id"    />
+        <result property="drugName"    column="drug_name"    />
+        <result property="manufacturer"    column="manufacturer"    />
+        <result property="buyPrice"    column="buy_price"    />
+        <result property="buyName"    column="buy_name"    />
+        <result property="buyPhone"    column="buy_phone"    />
+        <result property="buyTime"    column="buy_time"    />
+        <result property="buyNum"    column="buy_num"    />
+        <result property="beginDate"    column="begin_date"    />
+        <result property="endDate"    column="end_date"    />
+        <result property="batchNumber"    column="batch_number"    />
+        <result property="unit"    column="unit"    />
+        <result property="specifications"    column="specifications"    />
+        <result property="sellRemark"    column="sell_remark"    />
+    </resultMap>
+
+    <sql id="selectMedicineSellRecordVo">
+        select id, drug_name, manufacturer, buy_price, buy_name, buy_phone, buy_time, buy_num, begin_date, end_date, batch_number, unit, specifications, sell_remark from medicine_sell_record
+    </sql>
+
+    <select id="selectMedicineSellRecordList" parameterType="com.ruoyi.system.domain.medicine.MedicineSellRecord" resultMap="MedicineSellRecordResult">
+        <include refid="selectMedicineSellRecordVo"/>
+        <where>  
+            <if test="drugName != null  and drugName != ''"> and drug_name like concat('%', #{drugName}, '%')</if>
+            <if test="manufacturer != null  and manufacturer != ''"> and manufacturer like concat('%', #{manufacturer}, '%')</if>
+            <if test="buyPrice != null "> and buy_price = #{buyPrice}</if>
+            <if test="buyName != null  and buyName != ''"> and buy_name like concat('%', #{buyName}, '%')</if>
+            <if test="buyPhone != null  and buyPhone != ''"> and buy_phone like concat('%', #{buyPhone}, '%')</if>
+            <if test="buyTime != null "> and buy_time = #{buyTime}</if>
+            <if test="buyNum != null "> and buy_num = #{buyNum}</if>
+            <if test="beginDate != null "> and begin_date = #{beginDate}</if>
+            <if test="endDate != null "> and end_date = #{endDate}</if>
+            <if test="batchNumber != null  and batchNumber != ''"> and batch_number = #{batchNumber}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="specifications != null  and specifications != ''"> and specifications = #{specifications}</if>
+            <if test="sellRemark != null  and sellRemark != ''"> and sell_remark = #{sellRemark}</if>
+        </where>
+    </select>
+    
+    <select id="selectMedicineSellRecordById" parameterType="Long" resultMap="MedicineSellRecordResult">
+        <include refid="selectMedicineSellRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMedicineSellRecord" parameterType="com.ruoyi.system.domain.medicine.MedicineSellRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into medicine_sell_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="drugName != null  and drugName != ''">drug_name,</if>
+            <if test="manufacturer != null  and manufacturer != ''">manufacturer,</if>
+            <if test="buyPrice != null ">buy_price,</if>
+            <if test="buyName != null  and buyName != ''">buy_name,</if>
+            <if test="buyPhone != null  and buyPhone != ''">buy_phone,</if>
+            <if test="buyTime != null ">buy_time,</if>
+            <if test="buyNum != null ">buy_num,</if>
+            <if test="beginDate != null ">begin_date,</if>
+            <if test="endDate != null ">end_date,</if>
+            <if test="batchNumber != null  and batchNumber != ''">batch_number,</if>
+            <if test="unit != null  and unit != ''">unit,</if>
+            <if test="specifications != null  and specifications != ''">specifications,</if>
+            <if test="sellRemark != null  and sellRemark != ''">sell_remark,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="drugName != null  and drugName != ''">#{drugName},</if>
+            <if test="manufacturer != null  and manufacturer != ''">#{manufacturer},</if>
+            <if test="buyPrice != null ">#{buyPrice},</if>
+            <if test="buyName != null  and buyName != ''">#{buyName},</if>
+            <if test="buyPhone != null  and buyPhone != ''">#{buyPhone},</if>
+            <if test="buyTime != null ">#{buyTime},</if>
+            <if test="buyNum != null ">#{buyNum},</if>
+            <if test="beginDate != null ">#{beginDate},</if>
+            <if test="endDate != null ">#{endDate},</if>
+            <if test="batchNumber != null  and batchNumber != ''">#{batchNumber},</if>
+            <if test="unit != null  and unit != ''">#{unit},</if>
+            <if test="specifications != null  and specifications != ''">#{specifications},</if>
+            <if test="sellRemark != null  and sellRemark != ''">#{sellRemark},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMedicineSellRecord" parameterType="com.ruoyi.system.domain.medicine.MedicineSellRecord">
+        update medicine_sell_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="drugName != null  and drugName != ''">drug_name = #{drugName},</if>
+            <if test="manufacturer != null  and manufacturer != ''">manufacturer = #{manufacturer},</if>
+            <if test="buyPrice != null ">buy_price = #{buyPrice},</if>
+            <if test="buyName != null  and buyName != ''">buy_name = #{buyName},</if>
+            <if test="buyPhone != null  and buyPhone != ''">buy_phone = #{buyPhone},</if>
+            <if test="buyTime != null ">buy_time = #{buyTime},</if>
+            <if test="buyNum != null ">buy_num = #{buyNum},</if>
+            <if test="beginDate != null ">begin_date = #{beginDate},</if>
+            <if test="endDate != null ">end_date = #{endDate},</if>
+            <if test="batchNumber != null  and batchNumber != ''">batch_number = #{batchNumber},</if>
+            <if test="unit != null  and unit != ''">unit = #{unit},</if>
+            <if test="specifications != null  and specifications != ''">specifications = #{specifications},</if>
+            <if test="sellRemark != null  and sellRemark != ''">sell_remark = #{sellRemark},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMedicineSellRecordById" parameterType="Long">
+        delete from medicine_sell_record where id = #{id}
+    </delete>
+
+    <delete id="deleteMedicineSellRecordByIds" parameterType="String">
+        delete from medicine_sell_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
