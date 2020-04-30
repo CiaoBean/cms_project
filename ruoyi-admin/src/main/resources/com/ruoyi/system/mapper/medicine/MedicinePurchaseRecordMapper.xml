@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.medicine.MedicinePurchaseRecordMapper">
+    
+    <resultMap type="com.ruoyi.system.domain.medicine.MedicinePurchaseRecord" id="MedicinePurchaseRecordResult">
+        <result property="id"    column="id"    />
+        <result property="drugName"    column="drug_name"    />
+        <result property="manufacturer"    column="manufacturer"    />
+        <result property="beginPrice"    column="begin_price"    />
+        <result property="beginDate"    column="begin_date"    />
+        <result property="endDate"    column="end_date"    />
+        <result property="batchNumber"    column="batch_number"    />
+        <result property="number"    column="number"    />
+        <result property="unit"    column="unit"    />
+        <result property="specifications"    column="specifications"    />
+        <result property="purchaseTime"    column="purchase_time"    />
+    </resultMap>
+
+    <sql id="selectMedicinePurchaseRecordVo">
+        select id, drug_name, manufacturer, begin_price, begin_date, end_date, batch_number, number, unit, specifications, purchase_time from medicine_purchase_record
+    </sql>
+
+    <select id="selectMedicinePurchaseRecordList" parameterType="com.ruoyi.system.domain.medicine.MedicinePurchaseRecord" resultMap="MedicinePurchaseRecordResult">
+        <include refid="selectMedicinePurchaseRecordVo"/>
+        <where>  
+            <if test="drugName != null  and drugName != ''"> and drug_name like concat('%', #{drugName}, '%')</if>
+            <if test="manufacturer != null  and manufacturer != ''"> and manufacturer like concat('%', #{manufacturer}, '%')</if>
+            <if test="beginPrice != null "> and begin_price = #{beginPrice}</if>
+            <if test="beginDate != null "> and begin_date = #{beginDate}</if>
+            <if test="endDate != null "> and end_date = #{endDate}</if>
+            <if test="batchNumber != null  and batchNumber != ''"> and batch_number = #{batchNumber}</if>
+            <if test="number != null "> and number = #{number}</if>
+            <if test="unit != null  and unit != ''"> and unit = #{unit}</if>
+            <if test="specifications != null  and specifications != ''"> and specifications = #{specifications}</if>
+            <if test="purchaseTime != null "> and purchase_time = #{purchaseTime}</if>
+        </where>
+    </select>
+    
+    <select id="selectMedicinePurchaseRecordById" parameterType="Long" resultMap="MedicinePurchaseRecordResult">
+        <include refid="selectMedicinePurchaseRecordVo"/>
+        where id = #{id}
+    </select>
+        
+    <insert id="insertMedicinePurchaseRecord" parameterType="com.ruoyi.system.domain.medicine.MedicinePurchaseRecord" useGeneratedKeys="true" keyProperty="id">
+        insert into medicine_purchase_record
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="drugName != null  and drugName != ''">drug_name,</if>
+            <if test="manufacturer != null  and manufacturer != ''">manufacturer,</if>
+            <if test="beginPrice != null ">begin_price,</if>
+            <if test="beginDate != null ">begin_date,</if>
+            <if test="endDate != null ">end_date,</if>
+            <if test="batchNumber != null  and batchNumber != ''">batch_number,</if>
+            <if test="number != null ">number,</if>
+            <if test="unit != null  and unit != ''">unit,</if>
+            <if test="specifications != null  and specifications != ''">specifications,</if>
+            <if test="purchaseTime != null ">purchase_time,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="drugName != null  and drugName != ''">#{drugName},</if>
+            <if test="manufacturer != null  and manufacturer != ''">#{manufacturer},</if>
+            <if test="beginPrice != null ">#{beginPrice},</if>
+            <if test="beginDate != null ">#{beginDate},</if>
+            <if test="endDate != null ">#{endDate},</if>
+            <if test="batchNumber != null  and batchNumber != ''">#{batchNumber},</if>
+            <if test="number != null ">#{number},</if>
+            <if test="unit != null  and unit != ''">#{unit},</if>
+            <if test="specifications != null  and specifications != ''">#{specifications},</if>
+            <if test="purchaseTime != null ">#{purchaseTime},</if>
+         </trim>
+    </insert>
+
+    <update id="updateMedicinePurchaseRecord" parameterType="com.ruoyi.system.domain.medicine.MedicinePurchaseRecord">
+        update medicine_purchase_record
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="drugName != null  and drugName != ''">drug_name = #{drugName},</if>
+            <if test="manufacturer != null  and manufacturer != ''">manufacturer = #{manufacturer},</if>
+            <if test="beginPrice != null ">begin_price = #{beginPrice},</if>
+            <if test="beginDate != null ">begin_date = #{beginDate},</if>
+            <if test="endDate != null ">end_date = #{endDate},</if>
+            <if test="batchNumber != null  and batchNumber != ''">batch_number = #{batchNumber},</if>
+            <if test="number != null ">number = #{number},</if>
+            <if test="unit != null  and unit != ''">unit = #{unit},</if>
+            <if test="specifications != null  and specifications != ''">specifications = #{specifications},</if>
+            <if test="purchaseTime != null ">purchase_time = #{purchaseTime},</if>
+        </trim>
+        where id = #{id}
+    </update>
+
+    <delete id="deleteMedicinePurchaseRecordById" parameterType="Long">
+        delete from medicine_purchase_record where id = #{id}
+    </delete>
+
+    <delete id="deleteMedicinePurchaseRecordByIds" parameterType="String">
+        delete from medicine_purchase_record where id in 
+        <foreach item="id" collection="array" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+    
+</mapper>
