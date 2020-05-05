@@ -24,15 +24,7 @@ public class SysUser extends BaseEntity
     @Excel(name = "用户序号", cellType = ColumnType.NUMERIC, prompt = "用户编号")
     private Long userId;
 
-    /** 部门ID */
-    @Excel(name = "部门编号", type = Type.IMPORT)
-    private Long deptId;
 
-    /** 部门父ID */
-    private Long parentId;
-
-    /** 角色ID */
-    private Long roleId;
 
     /** 登录名称 */
     @Excel(name = "登录名称")
@@ -63,19 +55,11 @@ public class SysUser extends BaseEntity
     /** 密码 */
     private String password;
 
-    /** 盐加密 */
-    private String salt;
 
-    /** 帐号状态（0正常 1停用） */
-    @Excel(name = "帐号状态", readConverterExp = "0=正常,1=停用")
-    private String status;
 
     /** 删除标志（0代表存在 2代表删除） */
     private String delFlag;
 
-    /** 最后登陆IP */
-    @Excel(name = "最后登陆IP", type = Type.EXPORT)
-    private String loginIp;
 
     /** 最后登陆时间 */
     @Excel(name = "最后登陆时间", width = 30, dateFormat = "yyyy-MM-dd HH:mm:ss", type = Type.EXPORT)
@@ -114,35 +98,6 @@ public class SysUser extends BaseEntity
         return userId != null && 1L == userId;
     }
 
-    public Long getDeptId()
-    {
-        return deptId;
-    }
-
-    public void setDeptId(Long deptId)
-    {
-        this.deptId = deptId;
-    }
-
-    public Long getParentId()
-    {
-        return parentId;
-    }
-
-    public void setParentId(Long parentId)
-    {
-        this.parentId = parentId;
-    }
-
-    public Long getRoleId()
-    {
-        return roleId;
-    }
-
-    public void setRoleId(Long roleId)
-    {
-        this.roleId = roleId;
-    }
 
     @NotBlank(message = "登录账号不能为空")
     @Size(min = 0, max = 30, message = "登录账号长度不能超过30个字符")
@@ -230,25 +185,6 @@ public class SysUser extends BaseEntity
         this.password = password;
     }
 
-    public String getSalt()
-    {
-        return salt;
-    }
-
-    public void setSalt(String salt)
-    {
-        this.salt = salt;
-    }
-
-    public String getStatus()
-    {
-        return status;
-    }
-
-    public void setStatus(String status)
-    {
-        this.status = status;
-    }
 
     public String getDelFlag()
     {
@@ -260,15 +196,6 @@ public class SysUser extends BaseEntity
         this.delFlag = delFlag;
     }
 
-    public String getLoginIp()
-    {
-        return loginIp;
-    }
-
-    public void setLoginIp(String loginIp)
-    {
-        this.loginIp = loginIp;
-    }
 
     public Date getLoginDate()
     {
@@ -286,7 +213,6 @@ public class SysUser extends BaseEntity
     public String toString() {
         return new ToStringBuilder(this,ToStringStyle.MULTI_LINE_STYLE)
             .append("userId", getUserId())
-            .append("deptId", getDeptId())
             .append("loginName", getLoginName())
             .append("userName", getUserName())
             .append("userType", getUserType())
@@ -295,10 +221,7 @@ public class SysUser extends BaseEntity
             .append("sex", getSex())
             .append("avatar", getAvatar())
             .append("password", getPassword())
-            .append("salt", getSalt())
-            .append("status", getStatus())
             .append("delFlag", getDelFlag())
-            .append("loginIp", getLoginIp())
             .append("loginDate", getLoginDate())
             .append("createBy", getCreateBy())
             .append("createTime", getCreateTime())

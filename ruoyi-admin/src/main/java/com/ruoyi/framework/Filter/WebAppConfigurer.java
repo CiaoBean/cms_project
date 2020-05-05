@@ -23,6 +23,8 @@ public class WebAppConfigurer  implements WebMvcConfigurer {
                 .excludePathPatterns("/js/**")
                 .excludePathPatterns("/ruoyi/**")
                 .excludePathPatterns("/captcha/captchaImage**")
+                .excludePathPatterns("/drawCode")
+                .excludePathPatterns("Scripts/**")
         ;
     }
 
