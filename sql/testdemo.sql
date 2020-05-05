@@ -1,16 +1,16 @@
 /*
 Navicat MySQL Data Transfer
 
-Source Server         : 119.29.177.249(3309)
-Source Server Version : 50729
-Source Host           : 119.29.177.249:3309
+Source Server         : localhost
+Source Server Version : 50540
+Source Host           : localhost:3306
 Source Database       : testdemo
 
 Target Server Type    : MYSQL
-Target Server Version : 50729
+Target Server Version : 50540
 File Encoding         : 65001
 
-Date: 2020-04-30 18:58:50
+Date: 2020-05-05 22:54:53
 */
 
 SET FOREIGN_KEY_CHECKS=0;
@@ -26,18 +26,20 @@ CREATE TABLE `medicine_purchase_record` (
   `begin_price` double(8,2) DEFAULT NULL COMMENT '进价',
   `begin_date` datetime DEFAULT NULL COMMENT '生产日期',
   `end_date` datetime DEFAULT NULL COMMENT '有效日期',
-  `batch_number` varchar(50) DEFAULT NULL COMMENT '批号',
+  `batch_number` varchar(50) DEFAULT NULL COMMENT '批号(关联medicine_store的批号)',
   `number` int(10) DEFAULT NULL COMMENT '进货量',
   `unit` varchar(50) DEFAULT NULL COMMENT '单位',
   `specifications` varchar(50) DEFAULT NULL COMMENT '规格',
   `purchase_time` datetime DEFAULT NULL COMMENT '进货时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8 COMMENT='进货记录';
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='进货记录';
 
 -- ----------------------------
 -- Records of medicine_purchase_record
 -- ----------------------------
 INSERT INTO `medicine_purchase_record` VALUES ('12', '999感冒灵', '云南白药', '2.98', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '100', '盒', '200g*20包', '2020-04-30 18:41:02');
+INSERT INTO `medicine_purchase_record` VALUES ('13', '999感冒灵', '云南白药', '4.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '1', '盒', '200g*20包', '2020-04-30 23:16:50');
+INSERT INTO `medicine_purchase_record` VALUES ('14', '999感冒灵', '云南白药', '12.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '12', '盒', '200g*20包', '2020-04-30 23:19:24');
 
 -- ----------------------------
 -- Table structure for medicine_sell_record
@@ -54,17 +56,18 @@ CREATE TABLE `medicine_sell_record` (
   `buy_num` int(10) DEFAULT NULL COMMENT '购买数量',
   `begin_date` datetime DEFAULT NULL COMMENT '生产日期',
   `end_date` datetime DEFAULT NULL COMMENT '有效日期',
-  `batch_number` varchar(50) DEFAULT NULL COMMENT '批号',
+  `batch_number` varchar(50) DEFAULT NULL COMMENT '批号(关联medicine_store的批号)',
   `unit` varchar(50) DEFAULT NULL COMMENT '单位',
   `specifications` varchar(50) DEFAULT NULL COMMENT '规格',
   `sell_remark` varchar(1024) DEFAULT NULL COMMENT '销售备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='进货记录';
+) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='销售记录';
 
 -- ----------------------------
 -- Records of medicine_sell_record
 -- ----------------------------
 INSERT INTO `medicine_sell_record` VALUES ('15', '999感冒灵', '云南白药', '19.00', '罗志祥', '156122222222', '2020-04-30 00:00:00', '3', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '盒', '200g*20包', '到店购买');
+INSERT INTO `medicine_sell_record` VALUES ('16', '999感冒灵', '云南白药', '22.00', '王菲', '12345555', '2020-04-30 00:00:00', '4', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '盒', '200g*20包', '4');
 
 -- ----------------------------
 -- Table structure for medicine_store
@@ -89,7 +92,7 @@ CREATE TABLE `medicine_store` (
 -- ----------------------------
 -- Records of medicine_store
 -- ----------------------------
-INSERT INTO `medicine_store` VALUES ('6', '999感冒灵', '云南白药', '20.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '1号储药室', '197', '盒', '200g*20包', '非处方药');
+INSERT INTO `medicine_store` VALUES ('6', '999感冒灵', '云南白药', '20.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '1号储药室', '206', '盒', '200g*20包', '非处方药');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -140,7 +143,7 @@ CREATE TABLE `sys_user` (
   `dept_id` bigint(20) DEFAULT NULL COMMENT '部门ID',
   `login_name` varchar(30) NOT NULL COMMENT '登录账号',
   `user_name` varchar(30) DEFAULT '' COMMENT '用户昵称',
-  `user_type` varchar(12) DEFAULT '',
+  `user_type` varchar(12) DEFAULT '' COMMENT '管理员/普通员工',
   `email` varchar(50) DEFAULT '' COMMENT '用户邮箱',
   `phonenumber` varchar(11) DEFAULT '' COMMENT '手机号码',
   `sex` char(1) DEFAULT '0' COMMENT '用户性别（0男 1女 2未知）',
