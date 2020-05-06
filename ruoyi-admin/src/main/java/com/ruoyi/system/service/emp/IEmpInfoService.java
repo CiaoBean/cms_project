@@ -59,4 +59,13 @@ public interface IEmpInfoService
      * @return 结果
      */
     public int deleteEmpInfoById(Long empId);
+
+    /**
+     * 批量修改员工为删除状态
+     *
+     * @param ids 需要删除的数据ID
+     * @return 结果
+     */
+    public int changeDetleStatusEmpInfoByIds(String ids);
+
 }

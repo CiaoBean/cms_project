@@ -23,17 +23,16 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 
     <select id="selectEmpInfoList" parameterType="com.ruoyi.system.domain.emp.EmpInfo" resultMap="EmpInfoResult">
         <include refid="selectEmpInfoVo"/>
-        <where>  
-            <if test="empName != null  and empName != ''"> and emp_name like concat('%', #{empName}, '%')</if>
-            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
-            <if test="identityCard != null "> and identity_card like concat('%', #{identityCard}, '%')</if>
-            <if test="phone != null "> and phone like concat('%', #{phone}, '%')</if>
-            <if test="salary != null "> and salary = #{salary}</if>
-            <if test="jobStatus != null "> and job_status = #{jobStatus}</if>
-            <if test="entryTime != null "> and entry_time = #{entryTime}</if>
-            <if test="leaveTime != null "> and leave_time = #{leaveTime}</if>
-            <if test="dataStatus != null "> and data_status = #{dataStatus}</if>
-        </where>
+        where  data_status = 0
+        <if test="empName != null  and empName != ''"> and emp_name like concat('%', #{empName}, '%')</if>
+        <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+        <if test="identityCard != null "> and identity_card like concat('%', #{identityCard}, '%')</if>
+        <if test="phone != null "> and phone like concat('%', #{phone}, '%')</if>
+        <if test="salary != null "> and salary = #{salary}</if>
+        <if test="jobStatus != null "> and job_status = #{jobStatus}</if>
+        <if test="entryTime != null "> and entry_time = #{entryTime}</if>
+        <if test="leaveTime != null "> and leave_time = #{leaveTime}</if>
+        <if test="dataStatus != null "> and data_status = #{dataStatus}</if>
     </select>
     
     <select id="selectEmpInfoById" parameterType="Long" resultMap="EmpInfoResult">
@@ -95,5 +94,13 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             #{empId}
         </foreach>
     </delete>
+
+
+    <update id="changeDetleStatusEmpInfoByIds" parameterType="String">
+        update  emp_info set data_status = 1 where emp_id in
+        <foreach item="empId" collection="array" open="(" separator="," close=")">
+            #{empId}
+        </foreach>
+    </update>
     
 </mapper>

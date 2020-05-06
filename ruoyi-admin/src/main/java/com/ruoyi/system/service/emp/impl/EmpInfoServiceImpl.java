@@ -92,4 +92,15 @@ public class EmpInfoServiceImpl implements IEmpInfoService
     {
         return empInfoMapper.deleteEmpInfoById(empId);
     }
+
+    /**
+     * 批量修改员工为删除状态
+     *
+     * @param ids 需要删除的数据ID
+     * @return 结果
+     */
+    @Override
+    public int changeDetleStatusEmpInfoByIds(String ids) {
+        return empInfoMapper.changeDetleStatusEmpInfoByIds(Convert.toStrArray(ids));
+    }
 }

@@ -101,6 +101,6 @@ public class EmpInfoController extends BaseController
     @ResponseBody
     public AjaxResult remove(String ids)
     {
-        return toAjax(empInfoService.deleteEmpInfoByIds(ids));
+        return toAjax(empInfoService.changeDetleStatusEmpInfoByIds(ids));
     }
 }

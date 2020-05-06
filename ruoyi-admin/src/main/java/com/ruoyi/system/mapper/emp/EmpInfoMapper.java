@@ -59,4 +59,12 @@ public interface EmpInfoMapper
      * @return 结果
      */
     public int deleteEmpInfoByIds(String[] empIds);
+
+
+    /**
+     * 批量修改员工为删除状态
+     * @param empIds
+     * @return
+     */
+    public int changeDetleStatusEmpInfoByIds(String[] empIds);
 }
