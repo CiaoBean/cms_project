@@ -2,18 +2,44 @@
 Navicat MySQL Data Transfer
 
 Source Server         : localhost
-Source Server Version : 50540
+Source Server Version : 50635
 Source Host           : localhost:3306
 Source Database       : testdemo
 
 Target Server Type    : MYSQL
-Target Server Version : 50540
+Target Server Version : 50635
 File Encoding         : 65001
 
-Date: 2020-05-05 22:54:53
+Date: 2020-05-06 17:44:34
 */
 
 SET FOREIGN_KEY_CHECKS=0;
+
+-- ----------------------------
+-- Table structure for emp_info
+-- ----------------------------
+DROP TABLE IF EXISTS `emp_info`;
+CREATE TABLE `emp_info` (
+  `emp_id` int(10) NOT NULL AUTO_INCREMENT COMMENT '员工号',
+  `emp_name` varchar(20) DEFAULT NULL COMMENT '员工姓名',
+  `gender` varchar(20) DEFAULT NULL COMMENT '性别',
+  `identity_card` varchar(30) DEFAULT NULL COMMENT '身份证号',
+  `phone` varchar(15) DEFAULT NULL COMMENT '联系电话',
+  `salary` double(10,2) DEFAULT NULL COMMENT '薪水',
+  `job_status` tinyint(10) DEFAULT NULL COMMENT '是否在职 (0:在职,1:已离职 )',
+  `entry_time` datetime DEFAULT NULL COMMENT '入职时间',
+  `leave_time` datetime DEFAULT NULL COMMENT '离职时间',
+  `data_status` tinyint(2) DEFAULT '0' COMMENT '0:有效, 1无效',
+  PRIMARY KEY (`emp_id`) USING BTREE,
+  UNIQUE KEY `uc_idcard` (`identity_card`) USING BTREE
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 ROW_FORMAT=DYNAMIC;
+
+-- ----------------------------
+-- Records of emp_info
+-- ----------------------------
+INSERT INTO `emp_info` VALUES ('4', 'asd', '男', '33', '3', '44.00', '0', '2020-04-30 00:00:00', '2020-05-16 00:00:00', '1');
+INSERT INTO `emp_info` VALUES ('5', 'ewf', '女', '22', '22', '44.00', '0', '2020-05-06 00:00:00', '2020-05-07 00:00:00', '1');
+INSERT INTO `emp_info` VALUES ('6', '55', '男', '5', '5', '5.00', '1', '2020-05-06 00:00:00', '2020-05-01 00:00:00', '1');
 
 -- ----------------------------
 -- Table structure for medicine_purchase_record
@@ -32,7 +58,7 @@ CREATE TABLE `medicine_purchase_record` (
   `specifications` varchar(50) DEFAULT NULL COMMENT '规格',
   `purchase_time` datetime DEFAULT NULL COMMENT '进货时间',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COMMENT='进货记录';
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8 COMMENT='进货记录';
 
 -- ----------------------------
 -- Records of medicine_purchase_record
@@ -40,6 +66,7 @@ CREATE TABLE `medicine_purchase_record` (
 INSERT INTO `medicine_purchase_record` VALUES ('12', '999感冒灵', '云南白药', '2.98', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '100', '盒', '200g*20包', '2020-04-30 18:41:02');
 INSERT INTO `medicine_purchase_record` VALUES ('13', '999感冒灵', '云南白药', '4.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '1', '盒', '200g*20包', '2020-04-30 23:16:50');
 INSERT INTO `medicine_purchase_record` VALUES ('14', '999感冒灵', '云南白药', '12.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '12', '盒', '200g*20包', '2020-04-30 23:19:24');
+INSERT INTO `medicine_purchase_record` VALUES ('15', '测试低库存', '测试低库存', '9.99', '2020-05-05 00:00:00', '2020-05-07 00:00:00', '2222', '3', '22', '33', '2020-05-06 17:08:23');
 
 -- ----------------------------
 -- Table structure for medicine_sell_record
@@ -61,13 +88,14 @@ CREATE TABLE `medicine_sell_record` (
   `specifications` varchar(50) DEFAULT NULL COMMENT '规格',
   `sell_remark` varchar(1024) DEFAULT NULL COMMENT '销售备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=17 DEFAULT CHARSET=utf8 COMMENT='销售记录';
+) ENGINE=InnoDB AUTO_INCREMENT=18 DEFAULT CHARSET=utf8 COMMENT='销售记录';
 
 -- ----------------------------
 -- Records of medicine_sell_record
 -- ----------------------------
 INSERT INTO `medicine_sell_record` VALUES ('15', '999感冒灵', '云南白药', '19.00', '罗志祥', '156122222222', '2020-04-30 00:00:00', '3', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '盒', '200g*20包', '到店购买');
 INSERT INTO `medicine_sell_record` VALUES ('16', '999感冒灵', '云南白药', '22.00', '王菲', '12345555', '2020-04-30 00:00:00', '4', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '盒', '200g*20包', '4');
+INSERT INTO `medicine_sell_record` VALUES ('17', '测试低库存', '测试低库存', '7.98', '22', '333', '2020-05-06 00:00:00', '4', '2020-05-05 00:00:00', '2020-05-07 00:00:00', '2222', '22', '33', '2');
 
 -- ----------------------------
 -- Table structure for medicine_store
@@ -87,12 +115,13 @@ CREATE TABLE `medicine_store` (
   `specifications` varchar(50) DEFAULT NULL COMMENT '规格',
   `remark` varchar(255) DEFAULT NULL COMMENT '备注',
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=utf8 COMMENT='药品存储';
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8 COMMENT='药品存储';
 
 -- ----------------------------
 -- Records of medicine_store
 -- ----------------------------
 INSERT INTO `medicine_store` VALUES ('6', '999感冒灵', '云南白药', '20.00', '2020-04-23 00:00:00', '2020-10-14 00:00:00', '20200430a', '1号储药室', '206', '盒', '200g*20包', '非处方药');
+INSERT INTO `medicine_store` VALUES ('7', '测试低库存', '测试低库存', '2.00', '2020-05-05 00:00:00', '2020-05-07 00:00:00', '2222', '333', '1', '22', '33', '122');
 
 -- ----------------------------
 -- Table structure for sys_menu
@@ -115,7 +144,7 @@ CREATE TABLE `sys_menu` (
   `update_time` datetime DEFAULT NULL COMMENT '更新时间',
   `remark` varchar(500) DEFAULT '' COMMENT '备注',
   PRIMARY KEY (`menu_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2004 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
+) ENGINE=InnoDB AUTO_INCREMENT=3003 DEFAULT CHARSET=utf8 COMMENT='菜单权限表';
 
 -- ----------------------------
 -- Records of sys_menu
@@ -131,8 +160,11 @@ INSERT INTO `sys_menu` VALUES ('1004', '用户导出', '100', '5', '#', '', 'F',
 INSERT INTO `sys_menu` VALUES ('1005', '用户导入', '100', '6', '#', '', 'F', '0', null, '#', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '');
 INSERT INTO `sys_menu` VALUES ('2000', '药品管理', '0', '1', '#', 'menuItem', 'M', '0', null, 'fa fa-leaf', 'admin', '2020-04-28 14:26:46', '', null, '');
 INSERT INTO `sys_menu` VALUES ('2001', '药品库存', '2000', '1', 'medicine/store/', 'menuItem', 'C', '0', null, 'fa fa-ship', 'admin', '2020-04-28 14:27:49', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2002', '进货记录', '2000', '2', 'medicine/record', 'menuItem', 'C', '0', null, 'fa fa-handshake-o', 'admin', '2020-04-28 15:55:01', '', null, '');
-INSERT INTO `sys_menu` VALUES ('2003', '销售记录', '2000', '3', 'medicine/sell', 'menuItem', 'C', '0', null, 'fa fa-handshake-o', 'admin', '2020-04-28 15:55:01', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2002', '进货记录', '2000', '3', 'medicine/record', 'menuItem', 'C', '0', null, 'fa fa-handshake-o', 'admin', '2020-04-28 15:55:01', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2003', '销售记录', '2000', '4', 'medicine/sell', 'menuItem', 'C', '0', null, 'fa fa-handshake-o', 'admin', '2020-04-28 15:55:01', '', null, '');
+INSERT INTO `sys_menu` VALUES ('2004', '药品预警', '2000', '2', 'medicine/store/lowWarning', 'menuItem', 'C', '0', null, 'fa fa-ship', 'admin', '2020-04-28 14:27:49', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3000', '员工管理', '0', '2', '#', 'menuItem', 'M', '0', null, 'fa fa-video-camera', 'admin', '2020-04-28 14:26:46', '', null, '');
+INSERT INTO `sys_menu` VALUES ('3002', '员工信息', '3000', '1', 'emp/info/', 'menuItem', 'C', '0', null, 'fa fa-handshake-o', 'admin', '2020-04-28 15:55:01', '', null, '');
 
 -- ----------------------------
 -- Table structure for sys_user
@@ -165,8 +197,8 @@ CREATE TABLE `sys_user` (
 -- ----------------------------
 -- Records of sys_user
 -- ----------------------------
-INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '医药管理系统', '管理员', 'haha@163.com', '15888888887', '男', '', '123456', 'f816c6', '1', '0', '127.0.0.1', '2020-04-28 23:41:33', 'admin', '2018-03-16 11:33:00', 'ry', '2020-04-30 12:48:47', '管理员');
-INSERT INTO `sys_user` VALUES ('2', '105', 'ry', '医药管理系统', '普通用户', 'ry@qq.com', '15666666666', '女', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '2', '127.0.0.1', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '测试员');
+INSERT INTO `sys_user` VALUES ('1', '103', 'admin', '若依', '管理员', 'haha@163.com', '15888888887', '男', '', '123456', 'f816c6', '1', '0', '127.0.0.1', '2020-04-28 23:41:33', 'admin', '2018-03-16 11:33:00', 'ry', '2020-04-30 12:48:47', '管理员');
+INSERT INTO `sys_user` VALUES ('2', '105', 'ry', '若依', '普通用户', 'ry@qq.com', '15666666666', '女', '', '8e6d98b90472783cc73c17047ddccf36', '222222', '0', '2', '127.0.0.1', '2018-03-16 11:33:00', 'admin', '2018-03-16 11:33:00', 'ry', '2018-03-16 11:33:00', '测试员');
 INSERT INTO `sys_user` VALUES ('100', null, 'caoxc', 'caoxc', '普通用户', '15622222222@qq.com', '15622222222', '男', '', '123456', '', '1', '2', '', null, '', '2020-04-29 00:53:37', '', '2020-04-29 23:23:38', '');
 INSERT INTO `sys_user` VALUES ('101', null, 'admin11', 'admin11', '普通用户', '1042634581@qq.com', '15888888812', '女', '', '123456', '', '1', '0', '', null, '', '2020-04-29 13:01:34', '', null, 'asdf');
 INSERT INTO `sys_user` VALUES ('102', null, 'admin22', 'admin22', '普通用户', '10426345381@qq.com', '15888888883', '女', '/profile/avatar/2020/04/29/3a4f7a51739575ad1beac0c151605778.png', '123456', '', '1', '0', '', null, '', '2020-04-29 13:11:50', '', '2020-04-29 21:04:43', 'saadmin22');
