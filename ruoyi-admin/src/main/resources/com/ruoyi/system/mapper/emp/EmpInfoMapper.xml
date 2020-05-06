@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.ruoyi.system.mapper.emp.EmpInfoMapper">
+    
+    <resultMap type="com.ruoyi.system.domain.emp.EmpInfo" id="EmpInfoResult">
+        <result property="empId"    column="emp_id"    />
+        <result property="empName"    column="emp_name"    />
+        <result property="gender"    column="gender"    />
+        <result property="identityCard"    column="identity_card"    />
+        <result property="phone"    column="phone"    />
+        <result property="salary"    column="salary"    />
+        <result property="jobStatus"    column="job_status"    />
+        <result property="entryTime"    column="entry_time"    />
+        <result property="leaveTime"    column="leave_time"    />
+        <result property="dataStatus"    column="data_status"    />
+    </resultMap>
+
+    <sql id="selectEmpInfoVo">
+        select emp_id, emp_name, gender, identity_card, phone, salary, job_status, entry_time, leave_time, data_status from emp_info
+    </sql>
+
+    <select id="selectEmpInfoList" parameterType="com.ruoyi.system.domain.emp.EmpInfo" resultMap="EmpInfoResult">
+        <include refid="selectEmpInfoVo"/>
+        <where>  
+            <if test="empName != null  and empName != ''"> and emp_name like concat('%', #{empName}, '%')</if>
+            <if test="gender != null  and gender != ''"> and gender = #{gender}</if>
+            <if test="identityCard != null "> and identity_card like concat('%', #{identityCard}, '%')</if>
+            <if test="phone != null "> and phone like concat('%', #{phone}, '%')</if>
+            <if test="salary != null "> and salary = #{salary}</if>
+            <if test="jobStatus != null "> and job_status = #{jobStatus}</if>
+            <if test="entryTime != null "> and entry_time = #{entryTime}</if>
+            <if test="leaveTime != null "> and leave_time = #{leaveTime}</if>
+            <if test="dataStatus != null "> and data_status = #{dataStatus}</if>
+        </where>
+    </select>
+    
+    <select id="selectEmpInfoById" parameterType="Long" resultMap="EmpInfoResult">
+        <include refid="selectEmpInfoVo"/>
+        where emp_id = #{empId}
+    </select>
+        
+    <insert id="insertEmpInfo" parameterType="com.ruoyi.system.domain.emp.EmpInfo">
+        insert into emp_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="empId != null ">emp_id,</if>
+            <if test="empName != null  and empName != ''">emp_name,</if>
+            <if test="gender != null  and gender != ''">gender,</if>
+            <if test="identityCard != null ">identity_card,</if>
+            <if test="phone != null ">phone,</if>
+            <if test="salary != null ">salary,</if>
+            <if test="jobStatus != null ">job_status,</if>
+            <if test="entryTime != null ">entry_time,</if>
+            <if test="leaveTime != null ">leave_time,</if>
+            <if test="dataStatus != null ">data_status,</if>
+         </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="empId != null ">#{empId},</if>
+            <if test="empName != null  and empName != ''">#{empName},</if>
+            <if test="gender != null  and gender != ''">#{gender},</if>
+            <if test="identityCard != null ">#{identityCard},</if>
+            <if test="phone != null ">#{phone},</if>
+            <if test="salary != null ">#{salary},</if>
+            <if test="jobStatus != null ">#{jobStatus},</if>
+            <if test="entryTime != null ">#{entryTime},</if>
+            <if test="leaveTime != null ">#{leaveTime},</if>
+            <if test="dataStatus != null ">#{dataStatus},</if>
+         </trim>
+    </insert>
+
+    <update id="updateEmpInfo" parameterType="com.ruoyi.system.domain.emp.EmpInfo">
+        update emp_info
+        <trim prefix="SET" suffixOverrides=",">
+            <if test="empName != null  and empName != ''">emp_name = #{empName},</if>
+            <if test="gender != null  and gender != ''">gender = #{gender},</if>
+            <if test="identityCard != null ">identity_card = #{identityCard},</if>
+            <if test="phone != null ">phone = #{phone},</if>
+            <if test="salary != null ">salary = #{salary},</if>
+            <if test="jobStatus != null">job_status = #{jobStatus},</if>
+            <if test="entryTime != null ">entry_time = #{entryTime},</if>
+            <if test="leaveTime != null ">leave_time = #{leaveTime},</if>
+            <if test="dataStatus != null ">data_status = #{dataStatus},</if>
+        </trim>
+        where emp_id = #{empId}
+    </update>
+
+    <delete id="deleteEmpInfoById" parameterType="Long">
+        delete from emp_info where emp_id = #{empId}
+    </delete>
+
+    <delete id="deleteEmpInfoByIds" parameterType="String">
+        delete from emp_info where emp_id in 
+        <foreach item="empId" collection="array" open="(" separator="," close=")">
+            #{empId}
+        </foreach>
+    </delete>
+    
+</mapper>

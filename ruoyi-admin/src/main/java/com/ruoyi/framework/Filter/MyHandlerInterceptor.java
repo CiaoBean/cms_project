@@ -14,7 +14,7 @@ public class MyHandlerInterceptor extends HandlerInterceptorAdapter {
             throws Exception {
         SysUser user = (SysUser) request.getSession().getAttribute("CURRENT_USER");
         if(user == null){
-            request.getRequestDispatcher("/login").forward(request, response);
+            response.sendRedirect("login");
         }
         return true;
     }
