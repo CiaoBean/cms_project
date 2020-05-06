@@ -46,6 +46,20 @@ public class MedicineStoreServiceImpl implements IMedicineStoreService
     }
 
     /**
+     * 查询药品存储低库存列表
+     *
+     * @param drugName
+     * @param manufacturer
+     * @param batchNumber
+     * @param countLessThan
+     * @return
+     */
+    @Override
+    public List<MedicineStore> selectMedicineStoreListLow(String drugName, String manufacturer, String batchNumber, Integer countLessThan) {
+        return this.medicineStoreMapper.selectMedicineStoreListLow(drugName,manufacturer,batchNumber,countLessThan);
+    }
+
+    /**
      * 新增药品存储
      * 
      * @param medicineStore 药品存储

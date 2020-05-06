@@ -28,6 +28,24 @@ public interface IMedicineStoreService
      */
     public List<MedicineStore> selectMedicineStoreList(MedicineStore medicineStore);
 
+
+
+
+    /**
+     * 查询药品存储低库存列表
+     * @param drugName
+     * @param manufacturer
+     * @param batchNumber
+     * @param countLessThan
+     * @return
+     */
+    public List<MedicineStore> selectMedicineStoreListLow(String drugName,
+                                                          String manufacturer,
+                                                          String batchNumber,
+                                                          Integer countLessThan);
+
+
+
     /**
      * 新增药品存储
      * 

@@ -38,6 +38,19 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
             <if test="specifications != null  and specifications != ''"> and specifications = #{specifications}</if>
         </where>
     </select>
+
+
+    <select id="selectMedicineStoreListLow"  resultMap="MedicineStoreResult">
+        <include refid="selectMedicineStoreVo"/>
+        <where>
+            <if test="drugName != null  and drugName != ''"> and drug_name like concat('%', #{drugName}, '%')</if>
+            <if test="manufacturer != null  and manufacturer != ''"> and manufacturer like concat('%', #{manufacturer}, '%')</if>
+            <if test="batchNumber != null  and batchNumber != ''"> and batch_number = #{batchNumber}</if>
+            <if test="countLessThan != null">and count  <![CDATA[<=]]> #{countLessThan}  </if>
+        </where>
+    </select>
+
+
     
     <select id="selectMedicineStoreById" parameterType="Long" resultMap="MedicineStoreResult">
         <include refid="selectMedicineStoreVo"/>

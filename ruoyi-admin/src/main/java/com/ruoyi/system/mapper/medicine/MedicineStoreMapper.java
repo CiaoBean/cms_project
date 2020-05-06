@@ -2,6 +2,7 @@ package com.ruoyi.system.mapper.medicine;
 
 
 import com.ruoyi.system.domain.medicine.MedicineStore;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -28,6 +29,21 @@ public interface MedicineStoreMapper
      * @return 药品存储集合
      */
     public List<MedicineStore> selectMedicineStoreList(MedicineStore medicineStore);
+
+
+    /**
+     * 查询药品存储低库存列表
+     * @param drugName
+     * @param manufacturer
+     * @param batchNumber
+     * @param countLessThan
+     * @return
+     */
+    public List<MedicineStore> selectMedicineStoreListLow(@Param("drugName")String drugName,
+                                                          @Param("manufacturer")String manufacturer,
+                                                          @Param("batchNumber")String batchNumber,
+                                                          @Param("countLessThan")Integer countLessThan);
+
 
     /**
      * 新增药品存储

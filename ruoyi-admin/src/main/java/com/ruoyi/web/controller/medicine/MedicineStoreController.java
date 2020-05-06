@@ -40,6 +40,14 @@ public class MedicineStoreController extends BaseController
         return prefix + "/store";
     }
 
+
+    @GetMapping("lowWarning")
+    public String lowWarning()
+    {
+        return prefix + "/storeLow";
+    }
+
+
     /**
      * 查询药品存储列表
      */
@@ -49,6 +57,20 @@ public class MedicineStoreController extends BaseController
     {
         startPage();
         List<MedicineStore> list = medicineStoreService.selectMedicineStoreList(medicineStore);
+        return getDataTable(list);
+    }
+
+
+    /**
+     * 查询药品预警存储列表
+     */
+    @PostMapping("/listLow")
+    @ResponseBody
+    public TableDataInfo listLow(MedicineStore medicineStore)
+    {
+        startPage();
+        List<MedicineStore> list = medicineStoreService.selectMedicineStoreListLow(medicineStore.getDrugName(),medicineStore.getManufacturer()
+                                    ,medicineStore.getBatchNumber(),3);
         return getDataTable(list);
     }
 
