@@ -16,7 +16,7 @@ ruoyi:
 # 开发环境配置
 server:
   # 服务器的HTTP端口，默认为80
-  port: 12080
+  port: 80
   servlet:
     # 应用的访问路径
     context-path: /
@@ -47,7 +47,7 @@ spring:
       type: com.alibaba.druid.pool.DruidDataSource
       url: jdbc:mysql://localhost:3306/testDemo?useUnicode=true&characterEncoding=UTF-8&useSSL=false&allowMultiQueries=true&serverTimezone=CTT
       username: root
-      password: root
+      password: 123456
       druid:
         # for initial,min,max
         initial-size: 5
