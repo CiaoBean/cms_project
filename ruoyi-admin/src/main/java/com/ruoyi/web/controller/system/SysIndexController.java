@@ -39,11 +39,12 @@ public class SysIndexController extends BaseController
         List<SysMenu> filterMenus = new ArrayList<>();
         // 根据用户角色过滤
         if("管理员".equals(user.getUserType())){
-            for(SysMenu sysMenu : menus){
-                if("系统管理".equals(sysMenu.getMenuName())||"员工管理".equals(sysMenu.getMenuName())){
-                    filterMenus.add(sysMenu);
-                }
-            }
+//            for(SysMenu sysMenu : menus){
+//                if("系统管理".equals(sysMenu.getMenuName())||"员工管理".equals(sysMenu.getMenuName())){
+//                    filterMenus.add(sysMenu);
+//                }
+//            }
+            filterMenus.addAll(menus);
         }else {
             for(SysMenu sysMenu : menus){
                 if("药品管理".equals(sysMenu.getMenuName())||"员工管理".equals(sysMenu.getMenuName())|| "系统管理".equals(sysMenu.getMenuName())){

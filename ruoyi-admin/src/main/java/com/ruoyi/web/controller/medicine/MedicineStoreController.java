@@ -2,6 +2,7 @@ package com.ruoyi.web.controller.medicine;
 
 import java.util.List;
 
+import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.domain.medicine.MedicineStore;
 import com.ruoyi.system.service.medicine.IMedicineStoreService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +20,8 @@ import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.utils.poi.ExcelUtil;
 import com.ruoyi.common.core.page.TableDataInfo;
 
+import javax.servlet.http.HttpServletRequest;
+
 /**
  * 药品存储Controller
  * 
@@ -35,9 +38,17 @@ public class MedicineStoreController extends BaseController
     private IMedicineStoreService medicineStoreService;
 
     @GetMapping()
-    public String store()
+    public String store(HttpServletRequest request)
     {
-        return prefix + "/store";
+        // 取身份信息
+        SysUser user = (SysUser) request.getSession().getAttribute("CURRENT_USER");
+        if("管理员".equals(user.getUserType())){
+            return prefix + "/store";
+        }else{
+            return prefix + "/storeForNormal";
+        }
+
+
     }
 
 
