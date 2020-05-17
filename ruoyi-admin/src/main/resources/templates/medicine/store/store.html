@@ -165,7 +165,16 @@
                         actions.push('<a class="btn btn-danger btn-xs ' + removeFlag + '" href="javascript:void(0)" onclick="$.operate.remove(\'' + row.id + '\')"><i class="fa fa-remove"></i>删除</a>');
                         return actions.join('');
                     }
-                }]
+                }],
+                onLoadSuccess: function () {  //加载成功时执行
+                    var tableId = document.getElementById("bootstrap-table");
+                    for(var i = 1;i < tableId.rows.length;i++) {
+                        var num = parseInt(tableId.rows[i].cells[8].innerHTML);
+                        if(num <= 10){
+                            tableId.rows[i].setAttribute("style","background: #FF7F00");
+                        }
+                    }
+                }
             };
             $.table.init(options);
         });
@@ -199,7 +208,8 @@
              table.set();
              var url = "/medicine/sell/addCus?batchNumber="+ batchNumber;
              $.modal.open("售出", url);
-        }
+        };
+
 
     </script>
 </body>

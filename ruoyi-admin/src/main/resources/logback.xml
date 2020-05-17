@@ -72,7 +72,7 @@
     </appender>
 	
 	<!-- 系统模块日志级别控制  -->
-	<logger name="com.ruoyi" level="debug" />
+	<logger name="com.ruoyi" level="error" />
 	<!-- Spring日志级别控制  -->
 	<logger name="org.springframework" level="warn" />
 
@@ -81,13 +81,13 @@
 	</root>
 	
 	<!--系统操作日志-->
-    <root level="debug">
+    <root level="error">
         <appender-ref ref="file_info" />
         <appender-ref ref="file_error" />
     </root>
 	
 	<!--系统用户操作日志-->
-    <logger name="sys-user" level="debug">
+    <logger name="sys-user" level="error">
         <appender-ref ref="sys-user"/>
     </logger>
 </configuration> 

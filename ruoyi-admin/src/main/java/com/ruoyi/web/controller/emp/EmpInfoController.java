@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.emp;
 
+import com.ruoyi.system.domain.SysUser;
 import com.ruoyi.system.domain.emp.EmpInfo;
 import com.ruoyi.system.service.emp.IEmpInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.ruoyi.common.core.controller.BaseController;
 import com.ruoyi.common.core.domain.AjaxResult;
 import com.ruoyi.common.core.page.TableDataInfo;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -34,9 +36,15 @@ public class EmpInfoController extends BaseController
     private IEmpInfoService empInfoService;
 
     @GetMapping()
-    public String info()
+    public String info(HttpServletRequest request)
     {
-        return prefix + "/info";
+        // 取身份信息
+        SysUser user = (SysUser) request.getSession().getAttribute("CURRENT_USER");
+        if("管理员".equals(user.getUserType())){
+            return prefix + "/info";
+        }else{
+            return prefix + "/infoForNormal";
+        }
     }
 
     /**

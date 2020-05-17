@@ -1,5 +1,6 @@
 package com.ruoyi.web.controller.system;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -35,7 +36,35 @@ public class SysIndexController extends BaseController
         SysUser user = (SysUser) request.getSession().getAttribute("CURRENT_USER");
         // 根据用户id取出菜单
         List<SysMenu> menus = menuService.selectMenusFirst();
-        mmap.put("menus", menus);
+        List<SysMenu> filterMenus = new ArrayList<>();
+        // 根据用户角色过滤
+        if("管理员".equals(user.getUserType())){
+            for(SysMenu sysMenu : menus){
+                if("系统管理".equals(sysMenu.getMenuName())||"员工管理".equals(sysMenu.getMenuName())){
+                    filterMenus.add(sysMenu);
+                }
+            }
+        }else {
+            for(SysMenu sysMenu : menus){
+                if("药品管理".equals(sysMenu.getMenuName())||"员工管理".equals(sysMenu.getMenuName())|| "系统管理".equals(sysMenu.getMenuName())){
+                    filterMenus.add(sysMenu);
+                }
+            }
+            // 移除用户列表
+            List<SysMenu> childrenUserMenu = new ArrayList<>();
+            for(SysMenu sysMenu : filterMenus){
+                if("系统管理".equals(sysMenu.getMenuName())){
+                    for(SysMenu childSysMenu :sysMenu.getChildren()){
+                        if(!"用户列表".equals(childSysMenu.getMenuName())){
+                            childrenUserMenu.add(childSysMenu);
+                        }
+                    }
+                    sysMenu.setChildren(childrenUserMenu);
+                }
+            }
+        }
+
+        mmap.put("menus", filterMenus);
         mmap.put("user", user);
         mmap.put("sideTheme", "theme-dark");
         mmap.put("skinName", "skin-blue");

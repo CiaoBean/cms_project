@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('员工管理列表')" />
+</head>
+<body class="gray-bg">
+     <div class="container-div">
+        <div class="row">
+            <div class="col-sm-12 search-collapse">
+                <form id="formId">
+                    <div class="select-list">
+                        <ul>
+                            <li>
+                                <label>员工姓名：</label>
+                                <input type="text" name="empName"/>
+                            </li>
+                          <!--  <li>
+                                <label>性别：</label>
+                                <input type="text" name="gender"/>
+                            </li>-->
+                            <li>
+                                <label>身份证号：</label>
+                                <input type="text" name="identityCard"/>
+                            </li>
+                            <li>
+                                <label>联系电话：</label>
+                                <input type="text" name="phone"/>
+                            </li>
+                            <!--<li>
+                                <label>薪水：</label>
+                                <input type="text" name="salary"/>
+                            </li>
+                            <li>
+                                <label>是否在职 (0:在职,1:已离职 )：</label>
+                                <select name="jobStatus">
+                                    <option value="">所有</option>
+                                    <option value="-1">代码生成请选择字典属性</option>
+                                </select>
+                            </li>
+                            <li class="select-time">
+                                <label>入职时间：</label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginEntryTime]"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endEntryTime]"/>
+                            </li>
+                            <li class="select-time">
+                                <label>离职时间：</label>
+                                <input type="text" class="time-input" id="startTime" placeholder="开始时间" name="params[beginLeaveTime]"/>
+                                <span>-</span>
+                                <input type="text" class="time-input" id="endTime" placeholder="结束时间" name="params[endLeaveTime]"/>
+                            </li>
+                            <li>
+                                <label>0:有效, 1无效：</label>
+                                <select name="dataStatus">
+                                    <option value="">所有</option>
+                                    <option value="-1">代码生成请选择字典属性</option>
+                                </select>
+                            </li>-->
+                            <li>
+                                <a class="btn btn-primary btn-rounded btn-sm" onclick="$.table.search()"><i class="fa fa-search"></i>&nbsp;搜索</a>
+                                <a class="btn btn-warning btn-rounded btn-sm" onclick="$.form.reset()"><i class="fa fa-refresh"></i>&nbsp;重置</a>
+                            </li>
+                        </ul>
+                    </div>
+                </form>
+            </div>
+
+            <div class="btn-group-sm" id="toolbar" role="group">
+            <!--    <a class="btn btn-success" onclick="$.operate.add()" >
+                    <i class="fa fa-plus"></i> 添加
+                </a>
+                <a class="btn btn-primary single disabled" onclick="$.operate.edit()">
+                    <i class="fa fa-edit"></i> 修改
+                </a>
+                <a class="btn btn-danger multiple disabled" onclick="$.operate.removeAll()" >
+                    <i class="fa fa-remove"></i> 删除
+                </a>-->
+            </div>
+            <div class="col-sm-12 select-table table-striped">
+                <table id="bootstrap-table"></table>
+            </div>
+        </div>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var editFlag = "";
+        var removeFlag = "";
+        var prefix = ctx + "emp/info";
+
+        $(function() {
+            var options = {
+                url: prefix + "/list",
+                createUrl: prefix + "/add",
+                updateUrl: prefix + "/edit/{id}",
+                removeUrl: prefix + "/remove",
+                exportUrl: prefix + "/export",
+                modalName: "员工管理",
+                columns: [{
+                    checkbox: true
+                },
+                {
+                    field: 'empId', 
+                    title: '员工号',
+                    visible: false
+                },
+                {
+                    field: 'empName', 
+                    title: '员工姓名'
+                },
+                {
+                    field: 'gender', 
+                    title: '性别'
+                },
+                {
+                    field: 'identityCard', 
+                    title: '身份证号'
+                },
+                {
+                    field: 'phone', 
+                    title: '联系电话'
+                },
+                {
+                    field: 'salary', 
+                    title: '薪水'
+                },
+                {
+                    field: 'jobStatus', 
+                    title: '是否在职',
+                    formatter: function (value, row, index) {
+                        if (value == 0) {
+                            return "在职";
+                        } else {
+                            return "已离职";
+                        }
+                    }
+
+                },
+                {
+                    field: 'entryTime', 
+                    title: '入职时间'
+                },
+                {
+                    field: 'leaveTime', 
+                    title: '离职时间'
+                }]
+            };
+            $.table.init(options);
+        });
+    </script>
+</body>
+</html>

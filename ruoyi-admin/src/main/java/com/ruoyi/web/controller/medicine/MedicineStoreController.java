@@ -70,7 +70,7 @@ public class MedicineStoreController extends BaseController
     {
         startPage();
         List<MedicineStore> list = medicineStoreService.selectMedicineStoreListLow(medicineStore.getDrugName(),medicineStore.getManufacturer()
-                                    ,medicineStore.getBatchNumber(),3);
+                                    ,medicineStore.getBatchNumber(),10);
         return getDataTable(list);
     }
 
